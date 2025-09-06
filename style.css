@@ -132,6 +132,7 @@ body {
     padding: 0;
     cursor: pointer;
     background-color: #333;
+    /*background-color: #e0e0e0;*/
     /* ↓↓↓↓↓↓【重要】中央揃えを解除するための指定 ↓↓↓↓↓↓ */
     align-items: stretch;
     justify-content: normal;
