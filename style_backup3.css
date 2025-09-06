@@ -109,10 +109,10 @@ body {
 
 /* Psychubeスロットのスタイル */
 .psychube-slot {
-    width: 80px;
-    height: 120px;
+    width: 80px;  /* 幅を調整 */
+    height: 120px; /* 高さをカードの比率(2:3)に合わせる */
     border: 2px dashed #dcdcdc;
-    border-radius: 6px;
+    border-radius: 6px; /* カードに合わせる */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,21 +123,32 @@ body {
     box-sizing: border-box;
     padding: 5px;
     overflow: hidden;
-    position: relative;
+    position: relative; /* 中身のレイアウトのため */
 }
 
-/* 中身が入ったPsychubeスロットのスタイル */
+/* 中身が入ったPsychubeスロット */
 .psychube-slot.slot-filled {
     border: none;
     padding: 0;
     cursor: pointer;
     background-color: #333;
-    /* ↓↓↓↓↓↓【重要】中央揃えを解除するための指定 ↓↓↓↓↓↓ */
-    align-items: stretch;
-    justify-content: normal;
 }
 
 /* Psychubeスロット内のカード要素の文字サイズを調整 */
+/* 文字情報全体を覆うオーバーレイ */
+.card-info-overlay {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    color: #fff;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.6) 50%, transparent 100%);
+    pointer-events: none; /* ▼▼▼ この一行が重要！マウス操作を透過させます ▼▼▼ */
+}
 .psychube-slot .card-footer .name {
     font-size: 10px;
     margin: 1px 0;
@@ -146,11 +157,7 @@ body {
     font-size: 8px;
 }
 .psychube-slot .card-header {
-    display: none;
-}
-/* Psychubeスロット内のフッター（星と名前）を下部に配置する */
-.psychube-slot .card-info-overlay {
-    justify-content: flex-end;
+    display: none; /* 小さすぎるので非表示に */
 }
 
 /* チームメモ */
@@ -423,10 +430,11 @@ body {
 /* --- 新しいキャラクターカードのスタイル（スロット共通版） --- */
 
 /* カードとスロット（中身あり）の共通コンテナスタイル */
-/*.psychube-slot.slot-filled*/ 
 .character-card,
 .team-slot.slot-filled {
     border-radius: 8px;
+    /*background-color: #333;*/
+    /*background-color: #8e8e8e;*/
     background-color: #e0e0e0;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -439,15 +447,14 @@ body {
     padding: 0;
     font-size: inherit;
     color: inherit;
-    /* 中央揃えを解除する指定 */
+    /* ▼▼▼【重要】中央揃えを解除する指定を追加 ▼▼▼ */
     align-items: stretch;
     justify-content: normal;
 }
 
 /* カードとスロット（中身あり）にホバーした時に画像を拡大 */
 .character-card:hover .character-portrait,
-.team-slot.slot-filled:hover .character-portrait,
-.psychube-slot.slot-filled:hover .character-portrait {
+.team-slot.slot-filled:hover .character-portrait {
     transform: scale(1.1);
 }
 
@@ -474,9 +481,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /*background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.6) 50%, transparent 100%);*/
-    background: linear-gradient(to top, rgba(0,0,0,0.65) 25%, rgba(0,0,0,0.3) 45%, transparent 100%);
-    pointer-events: none; /* カード全体でドラッグできるようにするため追加 */
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.6) 50%, transparent 100%);
+    pointer-events: none; /* ★★★ 変更点 ★★★ カード全体でドラッグできるようにするため追加 */
 }
 
 /* カード上部の情報 */
@@ -769,8 +775,10 @@ body {
   z-index: 999;
   transition: opacity 0.3s, transform 0.3s;
   
+  /* ▼▼▼【重要】transformとtransform-originをこちらに移動 ▼▼▼ */
   transform-origin: top right;
   
+  /* 背景やパディングなどもこちらに移動 */
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
   padding: 10px;
@@ -788,15 +796,15 @@ body {
   pointer-events: none;
 }
 
-/* ★★★ 変更点 ★★★ モードごとの縮小率を調整 */
+/* モードごとの縮小率をミニビュー本体に適用 */
 .mini-team-view:not(.mode-limbo):not(.mode-4parties) {
-    transform: scale(0.7);
-}
-.mini-team-view.mode-limbo {
     transform: scale(0.6);
 }
+.mini-team-view.mode-limbo {
+    transform: scale(0.5);
+}
 .mini-team-view.mode-4parties {
-    transform: scale(0.55);
+    transform: scale(0.45);
 }
 
 
@@ -846,23 +854,26 @@ body {
     display: flex; /* 再表示 */
 }
 
-/* ★★★ 変更点 ★★★ MiniViewのPsychubeは画像のみにする */
-.mini-team-view .psychube-slot .card-info-overlay {
-    display: none;
-}
 
-/* ★★★ 変更点 ★★★ 不要になった二重のtransform: scaleを削除 */
+
 /* Standardモード (1パーティー) */
-/* .mini-team-view:not(.mode-limbo):not(.mode-4parties) .team-slots-container { ... } */
+/*.mini-team-view:not(.mode-limbo):not(.mode-4parties) .team-slots-container {
+    transform: scale(0.6);
+    transform-origin: top right;
+}*/
 
 /* Limboモード (2パーティー) */
-/* .mini-team-view.mode-limbo .team-slots-container { ... } */
+/*.mini-team-view.mode-limbo .team-slots-container {
+    transform: scale(0.5);
+    transform-origin: top right;
+}*/
 
 /* 4 Partiesモード */
 .mini-team-view.mode-4parties .team-slots-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    /*transform: scale(0.45);*/
     transform-origin: top right;
 }
 
@@ -900,6 +911,7 @@ body {
     border-bottom: 1px solid #eee;
     margin-bottom: 5px;
 }
+
 
 /* 表示切替ボタンのスタイル */
 .view-switcher {

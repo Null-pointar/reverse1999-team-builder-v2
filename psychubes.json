@@ -1,20 +1,20 @@
 [
   {
-    "id": "P5001",
+    "id": "P5007",
     "name": "A Free Heart",
     "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5002",
+    "id": "P5014",
     "name": "A New Leaf",
     "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5003",
+    "id": "P5009",
     "name": "A Satisfied Eater",
     "rarity": 5,
     "effect": "None",
@@ -35,9 +35,9 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5005",
     "name": "An Afternoon Nap",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -91,16 +91,16 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5028",
     "name": "Belt It Out",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "",
+    "id": "P5016",
     "name": "Beyond the Gears",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -119,9 +119,9 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P4001",
     "name": "Bow",
-    "rarity": 6,
+    "rarity": 4,
     "effect": "None",
     "version": 0
   },
@@ -140,16 +140,16 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P3001",
     "name": "Cheering",
-    "rarity": 6,
+    "rarity": 3,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P4002",
     "name": "Covet",
-    "rarity": 6,
+    "rarity": 4,
     "effect": "None",
     "version": 0
   },
@@ -168,18 +168,18 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5004",
     "name": "Decode",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
-    "name": "Dust on the Roadside2.8",
-    "rarity": 6,
+    "id": "P5032",
+    "name": "Dust on the Roadside",
+    "rarity": 5,
     "effect": "None",
-    "version": 0
+    "version": "2.8"
   },
   {
     "id": "P6041",
@@ -189,9 +189,9 @@
     "version": "2.8"
   },
   {
-    "id": "P5001",
+    "id": "P5025",
     "name": "Falling for a Sweet Phenomenon",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -203,16 +203,16 @@
     "version": "2.8"
   },
   {
-    "id": "P5001",
+    "id": "P3002",
     "name": "Fatuous",
-    "rarity": 6,
+    "rarity": 3,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P3003",
     "name": "Flourishing",
-    "rarity": 6,
+    "rarity": 3,
     "effect": "None",
     "version": 0
   },
@@ -231,23 +231,23 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5020",
     "name": "Going Along Alone",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5006",
     "name": "Her Bright Future",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5021",
     "name": "Her Mournful Face",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -266,7 +266,7 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5015",
     "name": "His Tail",
     "rarity": 6,
     "effect": "None",
@@ -287,9 +287,9 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5019",
     "name": "In the Shadow",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -308,16 +308,16 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5008",
     "name": "Laughter and Laughter",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5011",
     "name": "Let's Set Sail",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -329,9 +329,9 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P3004",
     "name": "Loss",
-    "rarity": 6,
+    "rarity": 3,
     "effect": "None",
     "version": 0
   },
@@ -343,16 +343,16 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P4003",
     "name": "Meek",
-    "rarity": 6,
+    "rarity": 4,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5031",
     "name": "Melodies Old and New",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -364,9 +364,9 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P4004",
     "name": "Navigating",
-    "rarity": 6,
+    "rarity": 4,
     "effect": "None",
     "version": 0
   },
@@ -378,23 +378,23 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5017",
     "name": "Night After Night",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P3005",
     "name": "Numb",
-    "rarity": 6,
+    "rarity": 3,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5030",
     "name": "Off the Scene",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -413,9 +413,9 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5027",
     "name": "One with the Flow",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -441,9 +441,9 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5010",
     "name": "Remaining Absurdity",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -462,23 +462,23 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5018",
     "name": "Silent Gaze",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P3006",
     "name": "Slighted",
     "rarity": 6,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5024",
     "name": "Spinning Yarns",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -504,23 +504,23 @@
     "version": 0
   },
   {
-    "id": "P5001",
-    "name": "Substitutes and Simulacra3.0",
-    "rarity": 6,
+    "id": "P5033",
+    "name": "Substitutes and Simulacra",
+    "rarity": 5,
     "effect": "None",
-    "version": 0
+    "version": "3.0"
   },
   {
-    "id": "P5001",
+    "id": "P5012",
     "name": "Take the Hard Journey",
     "rarity": 6,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5013",
     "name": "Tea Break",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -553,16 +553,16 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5003",
     "name": "The Footloose",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5026",
     "name": "The Severed and the Rest",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -581,9 +581,9 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5023",
     "name": "The Unknown Artist",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -602,9 +602,9 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5002",
     "name": "Tomorrow Also",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
@@ -616,30 +616,30 @@
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P4005",
     "name": "Venomous",
-    "rarity": 6,
+    "rarity": 4,
     "effect": "None",
     "version": 0
   },
   {
     "id": "P5001",
     "name": "Yearning Desire",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5022",
     "name": "You Deserve It",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   },
   {
-    "id": "P5001",
+    "id": "P5029",
     "name": "Your Friendly Exorcist",
-    "rarity": 6,
+    "rarity": 5,
     "effect": "None",
     "version": 0
   }

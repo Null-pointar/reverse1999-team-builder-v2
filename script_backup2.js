@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
             }
             
-            displayPsychubes(sortedPsychubes);
+            displayPsychubes(filteredPsychubes);
         }
     }
 
@@ -467,7 +467,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ★★★ 変更点 ★★★ こちらが唯一の正しい定義となる
     // 現在のチーム状態から共有用データを生成
     function generateCurrentTeamData() {
         const slots = document.querySelectorAll('.slot-unit');
@@ -490,13 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
             teams.push(teamData.slice(i, i + 4));
         }
         
-        return {
-            mode: currentMode,
-            teams: teams,
-            // shareモーダル用に名前と説明もここで取得する
-            name: loadedTeamTitle.value.trim(),
-            description: loadedTeamDesc.value.trim()
-        };
+        return { mode: currentMode, teams: teams };
     }
 
     // チームデータをUIに反映させる共通関数
@@ -511,14 +504,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.querySelectorAll('.slot-unit').forEach((unit, index) => {
             const data = flatTeamData[index];
+            if (!data) return;
+
             const charSlot = unit.querySelector('.team-slot');
             const psychubeSlot = unit.querySelector('.psychube-slot');
-            
-            // スロットをクリア
-            clearSlot(charSlot);
-            clearPsychubeSlot(psychubeSlot);
-
-            if (!data) return;
 
             if (data.c) {
                 const character = allCharacters.find(c => c.id == data.c);
@@ -562,7 +551,6 @@ document.addEventListener('DOMContentLoaded', () => {
         slot.innerHTML = generatePsychubeCardHTML(psychube); 
         slot.classList.add('slot-filled');
         slot.dataset.psychubeId = psychube.id;
-        slot.setAttribute('draggable', true);
         updateMiniView();
     }
 
@@ -571,7 +559,6 @@ document.addEventListener('DOMContentLoaded', () => {
         slot.innerHTML = `Psychube`;
         slot.classList.remove('slot-filled');
         delete slot.dataset.psychubeId;
-        slot.setAttribute('draggable', false);
         updateMiniView();
     }
     
@@ -677,6 +664,36 @@ document.addEventListener('DOMContentLoaded', () => {
         currentlyLoadedTeamId = teamId;
         closeSidePanel();
     }
+    
+    // チームデータをUIに反映させる共通関数
+    function loadTeamData(teamData) {
+        currentMode = teamData.mode;
+        // モードボタンの表示を更新
+        modeSelector.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.mode === currentMode);
+        });
+        
+        renderTeamSlots(); // 新しいモードでスロットを再描画
+        
+        const allSlots = document.querySelectorAll('.team-slot');
+        const flatTeamIds = teamData.teams.flat();
+
+        allSlots.forEach((slot, index) => {
+            const charId = flatTeamIds[index];
+            if (charId) {
+                const character = allCharacters.find(c => c.id == charId);
+                if (character) fillSlot(slot, character);
+            } else {
+                clearSlot(slot);
+            }
+        });
+
+        // チーム名と説明をUIに反映
+        loadedTeamTitle.value  = teamData.name || '';
+        loadedTeamDesc.value = teamData.description || '';
+
+        updateMiniView();
+    }
 
     // チームを削除
     function deleteTeam(teamId) {
@@ -720,8 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
         shareModal.classList.add('hidden');
     }
 
-    // ★★★ 変更点 ★★★ 重複していたため、こちらの不正な関数定義を削除しました。
-    /*
+    // 現在のチーム状態から共有用データを生成
     function generateCurrentTeamData() {
         const teamIds = Array.from(document.querySelectorAll('.team-slot')).map(slot => slot.dataset.characterId || null);
         if (teamIds.every(id => id === null)) return null;
@@ -736,7 +752,6 @@ document.addEventListener('DOMContentLoaded', () => {
             teams: teams
         };
     }
-    */
     
     // QRコードを生成
     function generateQrCode(url) {
@@ -885,7 +900,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // ★★★ 変更点 ★★★「Save Current Team」ボタンは常に新規保存を行う
+    // 現在のチームを保存
     saveTeamForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const name = loadedTeamTitle.value.trim();
@@ -894,11 +909,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamData = generateCurrentTeamData();
         if (!teamData) { alert('Cannot save an empty team.'); return; }
         
-        // 常に新しいIDを生成して新しいチームとして保存
         const newTeam = {
             id: Date.now().toString(),
             name: name,
-            description: teamData.description,
+            description: loadedTeamDesc.value.trim(),
             mode: teamData.mode,
             teams: teamData.teams
         };
@@ -907,9 +921,8 @@ document.addEventListener('DOMContentLoaded', () => {
         savedTeams.push(newTeam);
         saveTeamsToStorage(savedTeams);
 
-        saveStatusElement.textContent = 'New Team Saved!';
-        setTimeout(() => saveStatusElement.textContent = '', 2000);
-
+        loadedTeamTitle.value = '';
+        loadedTeamDesc.value = '';
         renderSavedTeams();
     });
 
@@ -947,6 +960,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInputButton.addEventListener('click', () => teamCodeInput.value = '');
 
     // チームメモの自動保存
+    // 削除した場所に、以下の新しいコードを追加してください
     let saveTimeout;
     function handleAutoSave() {
         if (!currentlyLoadedTeamId) return;
@@ -956,14 +970,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let teams = getSavedTeams();
             const teamIndex = teams.findIndex(t => t.id === currentlyLoadedTeamId);
             if (teamIndex > -1) {
-                teams[teamIndex].name = loadedTeamTitle.value;
+                teams[teamIndex].name = loadedTeamTitle.value; // チーム名も保存
                 teams[teamIndex].description = loadedTeamDesc.value;
-                
-                // チームメンバーも自動保存
-                const teamData = generateCurrentTeamData();
-                teams[teamIndex].mode = teamData.mode;
-                teams[teamIndex].teams = teamData.teams;
-
                 saveTeamsToStorage(teams);
                 saveStatusElement.textContent = 'Saved!';
                 setTimeout(() => saveStatusElement.textContent = '', 2000);
@@ -971,8 +979,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    //loadedTeamTitle.addEventListener('input', handleAutoSave);
-    //loadedTeamDesc.addEventListener('input', handleAutoSave);
+    loadedTeamTitle.addEventListener('input', handleAutoSave); // チーム名入力欄にリスナー設定
+    loadedTeamDesc.addEventListener('input', handleAutoSave);  // 説明入力欄にリスナー設定
 
 
     // 1. 監視対象とミニビューの要素を取得
@@ -1030,9 +1038,9 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault(); // ドロップを許可するために必須
         miniTeamView.classList.add('drag-over');
 
-        // キャラとPsychube両方のスロットを対象にする
-        const targetSlot = event.target.closest('.team-slot, .psychube-slot');
-        document.querySelectorAll('.mini-team-view .team-slot, .mini-team-view .psychube-slot').forEach(slot => {
+        // スロットの上にいるか判定してスタイルを当てる
+        const targetSlot = event.target.closest('.team-slot');
+        document.querySelectorAll('.mini-team-view .team-slot').forEach(slot => {
             slot.classList.toggle('drag-over-slot', slot === targetSlot);
         });
     });
@@ -1040,8 +1048,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ミニビューからドラッグが離れた時の処理
     miniTeamView.addEventListener('dragleave', () => {
         miniTeamView.classList.remove('drag-over');
-        // キャラとPsychube両方のスロットを対象にする
-        document.querySelectorAll('.mini-team-view .team-slot, .mini-team-view .psychube-slot').forEach(slot => {
+        document.querySelectorAll('.mini-team-view .team-slot').forEach(slot => {
             slot.classList.remove('drag-over-slot');
         });
     });
@@ -1075,33 +1082,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ★★★ 変更点 ★★★ MiniViewの削除機能を修正
-    miniTeamView.addEventListener('click', (event) => {
-        // 1. クリックされたのがキャラクタースロットかPsychubeスロットかを確認
-        const targetMiniSlot = event.target.closest('.team-slot, .psychube-slot');
+    // ▼▼▼ ここからミニビューのキャラ削除機能を追加 ▼▼▼
 
-        // スロット以外がクリックされた場合は何もしない
-        if (!targetMiniSlot) {
+    miniTeamView.addEventListener('click', (event) => {
+        // 1. クリックされたのがキャラクタースロットか確認
+        const targetMiniSlot = event.target.closest('.team-slot');
+
+        // スロット以外、または空のスロットがクリックされた場合は何もしない
+        if (!targetMiniSlot || !targetMiniSlot.dataset.characterId) {
             return;
         }
 
+        // 2. スロットの番号（インデックス）を取得
         const slotIndex = targetMiniSlot.dataset.slotIndex;
-        const isCharSlot = targetMiniSlot.classList.contains('team-slot');
 
-        if (isCharSlot) {
-            // キャラクタースロットの場合
-            if (!targetMiniSlot.dataset.characterId) return; // 空なら何もしない
-            const originalSlot = teamSlotsContainer.querySelector(`.team-slot[data-slot-index="${slotIndex}"]`);
-            if (originalSlot) {
-                clearSlot(originalSlot); // キャラクターを削除
-            }
-        } else {
-            // Psychubeスロットの場合
-            if (!targetMiniSlot.dataset.psychubeId) return; // 空なら何もしない
-            const originalSlot = teamSlotsContainer.querySelector(`.psychube-slot[data-slot-index="${slotIndex}"]`);
-            if (originalSlot) {
-                clearPsychubeSlot(originalSlot); // Psychubeを削除
-            }
+        // 3. メインのチーム編成エリアから、同じ番号の「本物」のスロットを探す
+        const originalSlot = teamSlotsContainer.querySelector(`.team-slot[data-slot-index="${slotIndex}"]`);
+        
+        // 4. 「本物」のスロットを空にする（既存の関数を呼ぶだけ！）
+        if (originalSlot) {
+            clearSlot(originalSlot);
         }
     });
 });
+
+// TODO: Screen Shot
+// TODO: QR code 
+// TODO: Pcychube
+// TODO: Character detail page -> キャラをクリックしたら詳細ページへ
+// TODO: Team Stats
