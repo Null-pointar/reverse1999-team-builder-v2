@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadTeamFromCodeButton = document.getElementById('load-team-from-code-button');
     const teamCodeInput = document.getElementById('team-code-input');
     const clearInputButton = document.getElementById('clear-input-button');
+    const resetFiltersButton = document.getElementById('reset-filters-button');
+    const clearTeamButton = document.getElementById('clear-team-button');
 
 
     // --- グローバル変数 ---
@@ -44,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMode = 'mode1'; // 初期モード
     let currentlyLoadedTeamId = null;
     let currentSort = 'default';
+    let autoSaveTimeout;
  
     // --- 初期化処理 ---
     // キャラクターと心相の両方のデータを読み込む
@@ -58,23 +61,34 @@ document.addEventListener('DOMContentLoaded', () => {
         // URLにチームデータがあれば読み込む
         const didLoadFromUrl = loadTeamFromUrl();
         if (!didLoadFromUrl) {
-            renderTeamSlots();
-            updateMiniView();
+            // URLからの読み込みがなければ、自動保存データを試す
+            const didLoadFromAutoSave = loadAutoSavedTeam();
+            if (!didLoadFromAutoSave) {
+                renderTeamSlots();
+                updateMiniView();
+            }
         }
         createAllFilters();
-        applyFilters(); // applyFiltersは内部で表示切替を行うように変更する
+        applyFilters();
     })
     .catch(error => console.error('Data failed to load:', error));
 
-        const sortButtons = document.querySelectorAll('.sort-btn');
-        sortButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                sortButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                currentSort = button.dataset.sort;
-                applyFilters();
-            });
-        });
+    // 2. ページ読み込み時に自動保存データを復元する関数を追加（74行目あたり）
+    function loadAutoSavedTeam() {
+        try {
+            const autoSavedData = localStorage.getItem('reverse1999_autosave_team');
+            if (autoSavedData) {
+                const teamData = JSON.parse(autoSavedData);
+                loadTeamData(teamData);
+                console.log('Restored auto-saved team draft.');
+                return true;
+            }
+        } catch (e) {
+            console.error('Failed to load auto-saved team:', e);
+            localStorage.removeItem('reverse1999_autosave_team');
+        }
+        return false;
+    }
 
     // --- フィルター関連の関数 ---
 
@@ -298,6 +312,35 @@ document.addEventListener('DOMContentLoaded', () => {
         createCheckboxFilters(tagFiltersContainer, c => c.tags, 'tag');
     }
 
+    // フィルターリセット用の関数を新規追加（315行目あたり、createTagFiltersの後など）
+    function resetAllFilters() {
+        // 検索バーをクリア
+        searchBar.value = '';
+
+        // ダメージタイプフィルターをリセット
+        selectedDamageType = null;
+        damageTypeFiltersContainer.classList.remove('filter-active');
+        document.querySelectorAll('.damage-type-filter').forEach(b => b.classList.remove('selected'));
+
+        // 属性フィルターをリセット
+        selectedAttribute = null;
+        attributeFiltersContainer.classList.remove('filter-active');
+        document.querySelectorAll('.attribute-filter').forEach(b => b.classList.remove('selected'));
+
+        // 専門分野・タグフィルターをリセット
+        const allCheckboxes = document.querySelectorAll('#specialty-filters input[type="checkbox"], #tag-filters input[type="checkbox"]');
+        allCheckboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                checkbox.checked = false;
+                checkbox.parentElement.classList.remove('checked');
+            }
+        });
+        
+        // フィルターを適用して再描画
+        applyFilters();
+    }
+
+
     // --- チーム編成とスロット関連の関数 ---
 
     // チームスロットを現在のモードに合わせて描画
@@ -465,9 +508,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (character) fillSlot(targetSlot, character);
             }
         }
+        scheduleAutoSave();
     }
 
-    // ★★★ 変更点 ★★★ こちらが唯一の正しい定義となる
     // 現在のチーム状態から共有用データを生成
     function generateCurrentTeamData() {
         const slots = document.querySelectorAll('.slot-unit');
@@ -544,6 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
         slot.setAttribute('draggable', true);
         updateTeamStats();
         updateMiniView();
+        scheduleAutoSave();
     }
     
     // スロットを空にする
@@ -554,6 +598,7 @@ document.addEventListener('DOMContentLoaded', () => {
         slot.setAttribute('draggable', false);
         updateTeamStats();
         updateMiniView();
+        scheduleAutoSave();
     }
 
     // PsychubeスロットにPsychubeを配置
@@ -564,6 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
         slot.dataset.psychubeId = psychube.id;
         slot.setAttribute('draggable', true);
         updateMiniView();
+        scheduleAutoSave();
     }
 
     // Psychubeスロットを空にする
@@ -573,6 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
         delete slot.dataset.psychubeId;
         slot.setAttribute('draggable', false);
         updateMiniView();
+        scheduleAutoSave();
     }
     
     // チーム統計を更新
@@ -580,6 +627,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // この機能は複雑なので、一旦基本的な動作を優先し、
         // 必要であれば後で詳細に実装します。
     }
+
+    // チームクリア用の関数を新規追加（622行目あたり、updateTeamStatsの後など）
+    function clearCurrentTeam() {
+        if (!confirm('Are you sure you want to clear the entire team? This cannot be undone.')) {
+            return;
+        }
+
+        // 全てのキャラクタースロットとPsychubeスロットをクリア
+        document.querySelectorAll('.team-slot').forEach(slot => clearSlot(slot));
+        document.querySelectorAll('.psychube-slot').forEach(slot => clearPsychubeSlot(slot));
+
+        // チーム名と説明もクリア
+        loadedTeamTitle.value = '';
+        loadedTeamDesc.value = '';
+        currentlyLoadedTeamId = null; // 読み込み状態も解除
+        saveStatusElement.textContent = 'Team Cleared.';
+        setTimeout(() => saveStatusElement.textContent = '', 2000);
+        scheduleAutoSave();
+    }
+
 
     // --- サイドパネルとチームデータ管理 ---
 
@@ -672,6 +739,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const teams = getSavedTeams();
         const teamDataToLoad = teams.find(t => t.id === teamId);
         if (!teamDataToLoad) return;
+
+        localStorage.removeItem('reverse1999_autosave_team');
         
         loadTeamData(teamDataToLoad);
         currentlyLoadedTeamId = teamId;
@@ -719,24 +788,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeShareModal() {
         shareModal.classList.add('hidden');
     }
-
-    // ★★★ 変更点 ★★★ 重複していたため、こちらの不正な関数定義を削除しました。
-    /*
-    function generateCurrentTeamData() {
-        const teamIds = Array.from(document.querySelectorAll('.team-slot')).map(slot => slot.dataset.characterId || null);
-        if (teamIds.every(id => id === null)) return null;
-        
-        const teams = [];
-        for (let i = 0; i < teamIds.length; i += 4) {
-            teams.push(teamIds.slice(i, i + 4));
-        }
-        
-        return {
-            mode: currentMode,
-            teams: teams
-        };
-    }
-    */
     
     // QRコードを生成
     function generateQrCode(url) {
@@ -745,7 +796,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const qr = qrcode(0, 'M');
             qr.addData(url);
             qr.make();
-            qrcodeDisplay.innerHTML = qr.createImgTag(5, 10);
+            qrcodeDisplay.innerHTML = qr.createImgTag(4, 8);
         } catch (e) {
             console.error("QR Code generation failed:", e);
             qrcodeDisplay.textContent = "QR Code could not be generated.";
@@ -781,6 +832,47 @@ document.addEventListener('DOMContentLoaded', () => {
             history.pushState("", document.title, window.location.pathname + window.location.search);
         }
         return false;
+    }
+
+    // 4. 既存の handleAutoSave 関数を、より汎用的な新しい関数に置き換える（866行目あたり）
+    // 元の handleAutoSave は削除してください。
+    let saveTimeout;
+    function scheduleAutoSave() {
+        clearTimeout(saveTimeout);
+        saveStatusElement.textContent = 'Saving...';
+        
+        saveTimeout = setTimeout(() => {
+            // 保存済みチームを編集中（IDがある）
+            if (currentlyLoadedTeamId) {
+                let teams = getSavedTeams();
+                const teamIndex = teams.findIndex(t => t.id === currentlyLoadedTeamId);
+                if (teamIndex > -1) {
+                    const teamData = generateCurrentTeamData();
+                    teams[teamIndex].name = loadedTeamTitle.value;
+                    teams[teamIndex].description = loadedTeamDesc.value;
+                    teams[teamIndex].mode = teamData.mode;
+                    teams[teamIndex].teams = teamData.teams;
+
+                    saveTeamsToStorage(teams);
+                    saveStatusElement.textContent = 'Saved!';
+                    setTimeout(() => saveStatusElement.textContent = '', 2000);
+                }
+            } 
+            // 新規チーム（IDがない）
+            else {
+                const teamData = generateCurrentTeamData();
+                // チームが空でなければ一時保存
+                if (teamData) {
+                    localStorage.setItem('reverse1999_autosave_team', JSON.stringify(teamData));
+                    saveStatusElement.textContent = 'Draft saved.';
+                } 
+                // チームが空になったら一時データを削除
+                else {
+                    localStorage.removeItem('reverse1999_autosave_team');
+                    saveStatusElement.textContent = '';
+                }
+            }
+        }, 1500); // 1.5秒ごと
     }
     
     // チームコードから読み込み
@@ -822,6 +914,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- イベントリスナーの設定 ---
+    loadedTeamTitle.addEventListener('input', scheduleAutoSave);
+    loadedTeamDesc.addEventListener('input', scheduleAutoSave);
 
     const viewSwitcher = document.getElementById('view-switcher');
     const characterFilters = document.querySelector('.filter-row'); // 属性とダメージタイプのフィルター
@@ -906,6 +1000,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedTeams = getSavedTeams();
         savedTeams.push(newTeam);
         saveTeamsToStorage(savedTeams);
+        localStorage.removeItem('reverse1999_autosave_team'); 
+        currentlyLoadedTeamId = newTeam.id; 
 
         saveStatusElement.textContent = 'New Team Saved!';
         setTimeout(() => saveStatusElement.textContent = '', 2000);
@@ -915,6 +1011,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 検索バー
     searchBar.addEventListener('input', applyFilters);
+
+    // reset filter
+    resetFiltersButton.addEventListener('click', resetAllFilters);
+
+    // Clear team slots
+    clearTeamButton.addEventListener('click', clearCurrentTeam);
 
     // 言語切替
     langButtons.forEach(button => {
@@ -945,34 +1047,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // チームコード読み込みボタン
     loadTeamFromCodeButton.addEventListener('click', loadTeamFromCode);
     clearInputButton.addEventListener('click', () => teamCodeInput.value = '');
-
-    // チームメモの自動保存
-    let saveTimeout;
-    function handleAutoSave() {
-        if (!currentlyLoadedTeamId) return;
-        clearTimeout(saveTimeout);
-        saveStatusElement.textContent = 'Saving...';
-        saveTimeout = setTimeout(() => {
-            let teams = getSavedTeams();
-            const teamIndex = teams.findIndex(t => t.id === currentlyLoadedTeamId);
-            if (teamIndex > -1) {
-                teams[teamIndex].name = loadedTeamTitle.value;
-                teams[teamIndex].description = loadedTeamDesc.value;
-                
-                // チームメンバーも自動保存
-                const teamData = generateCurrentTeamData();
-                teams[teamIndex].mode = teamData.mode;
-                teams[teamIndex].teams = teamData.teams;
-
-                saveTeamsToStorage(teams);
-                saveStatusElement.textContent = 'Saved!';
-                setTimeout(() => saveStatusElement.textContent = '', 2000);
-            }
-        }, 1000);
-    }
-
-    //loadedTeamTitle.addEventListener('input', handleAutoSave);
-    //loadedTeamDesc.addEventListener('input', handleAutoSave);
 
 
     // 1. 監視対象とミニビューの要素を取得
@@ -1105,3 +1179,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// TODO: Screen Shot
+// TODO: QR code 
+// TODO: Pcychube
+// TODO: Character detail page -> キャラをクリックしたら詳細ページへ
+// TODO: Team Stats
+// TODO: Filter reset button
+// TODO: Team Clear button
+// TODO: Show pop up detail modal when the user clicked a card
+// TODO: Auto save to the browser 
