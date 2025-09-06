@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const damageTypeClass = `type-${character.damageType.toLowerCase()}`;
 
         return `
-            <img src="images/${character.id}.png" alt="${character.name}" class="character-portrait" loading="lazy" onerror="this.style.display='none'">
+            <img src="images/characters/${character.id}.png" alt="${character.name}" class="character-portrait" loading="lazy" onerror="this.style.display='none'">
             
             <div class="card-info-overlay">
                 <div class="card-header">
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function generatePsychubeCardHTML(psychube) {
         const rarityStars = '★'.repeat(psychube.rarity || 0);
         return `
-            <img src="images/${psychube.id}.png" alt="${psychube.name}" class="character-portrait" loading="lazy" onerror="this.style.display='none'">
+            <img src="images/psychubes/${psychube.id}.png" alt="${psychube.name}" class="character-portrait" loading="lazy" onerror="this.style.display='none'">
             <div class="card-info-overlay">
                 <div class="card-header"></div>
                 <div class="card-footer">
