@@ -78,6 +78,7 @@
                 <textarea id="loaded-team-desc" placeholder="Note for the team..."></textarea>
                 <p id="save-status" class="save-status"></p>
                 <button type="submit">Save Current Team</button>
+                <button type="button" id="clear-team-button">Clear Current Team</button>
             </form>
             
         </div>
@@ -119,6 +120,10 @@
                 
                 <button class="sort-btn hidden" data-sort="id-desc" data-view="psychubes">ID ▼</button>
                 <button class="sort-btn hidden" data-sort="id-asc" data-view="psychubes">ID ▲</button>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="reset-filters-button" style="padding: 8px 20px; border: 1px solid #ccc; background-color: #f0f0f0; border-radius: 5px; cursor: pointer;">Reset All Filters</button>
+                </div>
             </div>
             <!--</section>-->
         </section>
