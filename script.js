@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveStatusElement = document.getElementById('save-status');
     const teamStatsContainer = document.getElementById('team-stats-container');
     const modeSelector = document.getElementById('mode-selector');
-    //const teamSlotsContainer = document.getElementById('team-slots-container');
+    const teamSlotsContainer = document.getElementById('team-slots-container');
     const panelNavButtons = document.querySelectorAll('.panel-nav-button');
     const panelContents = document.querySelectorAll('.panel-content');
     const shareModal = document.getElementById('share-modal');
@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- グローバル変数 ---
     let allCharacters = [];
+    let allPsychubes = []; 
+    let currentView = 'characters';
     let selectedDamageType = null;
     let selectedAttribute = null;
     let currentMode = 'mode1'; // 初期モード
@@ -45,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 初期化処理 ---
     // キャラクターデータを読み込み、初期表示を実行
+    /*
     fetch('characters.json')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
@@ -63,6 +66,27 @@ document.addEventListener('DOMContentLoaded', () => {
             applyFilters();
         })
         .catch(error => console.error('Character data failed to load:', error));
+    */
+    // --- 初期化処理 ---
+    // キャラクターと心相の両方のデータを読み込む
+    Promise.all([
+        fetch('characters.json').then(res => res.json()),
+        fetch('psychubes.json').then(res => res.json())
+    ])
+    .then(([characters, psychubes]) => {
+        allCharacters = characters;
+        allPsychubes = psychubes;
+
+        // URLにチームデータがあれば読み込む
+        const didLoadFromUrl = loadTeamFromUrl();
+        if (!didLoadFromUrl) {
+            renderTeamSlots();
+            updateMiniView();
+        }
+        createAllFilters();
+        applyFilters(); // applyFiltersは内部で表示切替を行うように変更する
+    })
+    .catch(error => console.error('Data failed to load:', error));
 
         const sortButtons = document.querySelectorAll('.sort-btn');
         sortButtons.forEach(button => {
@@ -85,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // フィルターを適用してキャラクターリストを更新
-    function applyFilters() {
+    /*function applyFilters() {
         const searchTerm = searchBar.value.toLowerCase();
         const selectedTags = Array.from(tagFiltersContainer.querySelectorAll('input:checked')).map(input => input.value);
         const selectedSpecialties = Array.from(specialtyFiltersContainer.querySelectorAll('input:checked')).map(input => input.value);
@@ -141,6 +165,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
             displayCharacters(sortedCharacters);
         }
+    */
+    // フィルターを適用して現在のビュー（キャラクター or 心相）を描画
+    function applyFilters() {
+        if (currentView === 'characters') {
+            // --- キャラクターの絞り込みと表示 ---
+            const searchTerm = searchBar.value.toLowerCase();
+            const selectedTags = Array.from(tagFiltersContainer.querySelectorAll('input:checked')).map(input => input.value);
+            const selectedSpecialties = Array.from(specialtyFiltersContainer.querySelectorAll('input:checked')).map(input => input.value);
+
+            const filteredCharacters = allCharacters.filter(character => {
+                const nameMatch = character.name.toLowerCase().includes(searchTerm);
+                const attributeMatch = !selectedAttribute || character.attribute === selectedAttribute;
+                const damageTypeMatch = !selectedDamageType || character.damageType === selectedDamageType;
+                const tagMatch = selectedTags.every(tag => character.tags.includes(tag));
+                const specialtyMatch = selectedSpecialties.every(spec => character.specialties.includes(spec));
+                return nameMatch && attributeMatch && damageTypeMatch && tagMatch && specialtyMatch;
+            });
+            
+            // ソート処理
+            let sortedCharacters = [...filteredCharacters];
+            // ... (既存のソートのswitch文はここに移動)
+            switch (currentSort) {
+                case 'rarity-desc': sortedCharacters.sort((a, b) => (b.rarity || 0) - (b.rarity || 0)); break;
+                case 'rarity-asc': sortedCharacters.sort((a, b) => (a.rarity || 0) - (b.rarity || 0)); break;
+                case 'version-desc':
+                    sortedCharacters.sort((a, b) => {
+                        const vA = a.version ? parseFloat(a.version) : 0;
+                        const vB = b.version ? parseFloat(b.version) : 0;
+                        if (vB !== vA) return vB - vA;
+                        return b.id - a.id;
+                    });
+                    break;
+                case 'version-asc':
+                    sortedCharacters.sort((a, b) => {
+                        const vA = a.version ? parseFloat(a.version) : 0;
+                        const vB = b.version ? parseFloat(b.version) : 0;
+                        if (vA !== vB) return vA - vB;
+                        return b.id - a.id;
+                    });
+                    break;
+                default: sortedCharacters.sort((a, b) => b.id - a.id); break;
+            }
+            displayCharacters(sortedCharacters);
+
+        } else if (currentView === 'psychubes') {
+            // --- 心相の絞り込みと表示 ---
+            const searchTerm = searchBar.value.toLowerCase();
+            const filteredPsychubes = allPsychubes.filter(p => p.name.toLowerCase().includes(searchTerm));
+            
+            // 心相のソート（ここではID順のみ実装）
+            filteredPsychubes.sort((a, b) => (a.id > b.id ? 1 : -1));
+            
+            displayPsychubes(filteredPsychubes);
+        }
+    }
+
+    // 心相一覧を表示する関数
+    function displayPsychubes(psychubes) {
+        characterListElement.innerHTML = '';
+        psychubes.forEach(psychube => {
+            const card = document.createElement('div');
+            card.className = 'character-card'; // 同じスタイルを流用
+            card.innerHTML = generatePsychubeCardHTML(psychube);
+            characterListElement.appendChild(card);
+        });
+    }
 
     // --- UI表示と生成の関数 ---
 
@@ -175,33 +265,27 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'character-card';
             card.draggable = true;
             card.dataset.id = character.id;
-            
-            /*
-            const rarityStars = '★'.repeat(character.rarity || 0);
-            const attributeClass = `attr-${character.attribute.toLowerCase()}`;
-            const damageTypeClass = `type-${character.damageType.toLowerCase()}`;
-            const specialtiesHTML = character.specialties.map(spec => `<span class="specialty-tag">${spec}</span>`).join('');
-            
-            card.innerHTML = `
-                <img src="images/${character.id}.png" alt="${character.name}" class="character-portrait" loading="lazy" onerror="this.style.display='none'">
-                
-                <div class="card-info-overlay">
-                    <div class="card-header">
-                        <div class="attribute ${attributeClass}">${character.attribute}</div>
-                        <div class="damage-type ${damageTypeClass}">${character.damageType}</div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="rarity">${rarityStars}</div>
-                        <div class="name">${character.name}</div>
-                        <div class="tags">${character.tags.join(' / ')}</div>
-                    </div>
-                </div>
-            `;*/
             card.innerHTML = generateCardHTML(character);
             
             card.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', character.id));
             characterListElement.appendChild(card);
         });
+    }
+
+    // ▼▼▼ 新しい関数を追加 ▼▼▼
+    // 心相カードのHTMLを生成する関数
+    function generatePsychubeCardHTML(psychube) {
+        const rarityStars = '★'.repeat(psychube.rarity || 0);
+        return `
+            <img src="images/${psychube.id}.png" alt="${psychube.name}" class="character-portrait" loading="lazy" onerror="this.style.display='none'">
+            <div class="card-info-overlay">
+                <div class="card-header"></div>
+                <div class="card-footer">
+                    <div class="rarity">${rarityStars}</div>
+                    <div class="name">${psychube.name}</div>
+                </div>
+            </div>
+        `;
     }
 
     // ダメージタイプフィルターを生成
@@ -400,8 +484,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openSidePanel() {
         sidePanelOverlay.classList.remove('hidden');
-        teamNameInput.value = loadedTeamTitle.value; 
-        teamDescInput.value = loadedTeamDesc.value;
         renderSavedTeams();
     }
     function closeSidePanel() {
@@ -668,6 +750,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- イベントリスナーの設定 ---
 
+    const viewSwitcher = document.getElementById('view-switcher');
+    const characterFilters = document.querySelector('.filter-row'); // 属性とダメージタイプのフィルター
+    
+    viewSwitcher.addEventListener('click', (event) => {
+        if (event.target.matches('.view-btn')) {
+            const selectedView = event.target.dataset.view;
+            if (selectedView === currentView) return;
+
+            currentView = selectedView;
+            
+            // ボタンのアクティブ状態を更新
+            viewSwitcher.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 表示に応じてフィルターの表示/非表示を切り替え
+            const isCharacters = currentView === 'characters';
+            characterFilters.style.display = isCharacters ? 'flex' : 'none';
+            specialtyFiltersContainer.style.display = isCharacters ? 'flex' : 'none';
+            tagFiltersContainer.style.display = isCharacters ? 'flex' : 'none';
+            sortButtons.forEach(btn => btn.style.display = isCharacters ? 'inline-block' : 'none');
+            
+            // 検索バーのプレースホルダーを更新
+            searchBar.placeholder = isCharacters ? 'Search by character name...' : 'Search by psychube name...';
+
+            applyFilters();
+        }
+    });
+
+
     // モード切替
     modeSelector.addEventListener('click', (event) => {
         const target = event.target.closest('.mode-btn');
@@ -784,7 +895,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. 監視対象とミニビューの要素を取得
     const teamSection = document.querySelector('.team-section');
     const miniTeamView = document.getElementById('mini-team-view');
-    const teamSlotsContainer = document.getElementById('team-slots-container');
+    //const teamSlotsContainer = document.getElementById('team-slots-container');
 
     // 2. ミニビューの中身を更新する関数
     function updateMiniView() {
@@ -906,3 +1017,4 @@ document.addEventListener('DOMContentLoaded', () => {
 // TODO: Screen Shot
 // TODO: QR code 
 // TODO: Pcychube
+// TODO: Character detail page -> キャラをクリックしたら詳細ページへ

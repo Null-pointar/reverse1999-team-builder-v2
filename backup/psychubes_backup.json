@@ -1,0 +1,830 @@
+[
+  {
+    "id": "P5001",
+    "name": [
+      "A Free Heart\n"
+    ],
+    "rarity": 5,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5002",
+    "name": [
+      "A New Leaf\n"
+    ],
+    "rarity": 5,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5003",
+    "name": [
+      "A Satisfied Eater\n"
+    ],
+    "rarity": 5,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6043",
+    "name": [
+      "A Tingle of a Thought\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": "2.8"
+  },
+  {
+    "id": "P6033",
+    "name": [
+      "Addio Coda\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "An Afternoon Nap\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6045",
+    "name": [
+      "An Epic's End\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6026",
+    "name": [
+      "And the Maid Says\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6017",
+    "name": [
+      "Another Story\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6020",
+    "name": [
+      "Approaching Rain\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6044",
+    "name": [
+      "As the Bell Tolls\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6040",
+    "name": [
+      "Aurora After Winter\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6012",
+    "name": [
+      "Balance, Please\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Belt It Out\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "",
+    "name": [
+      "Beyond the Gears\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6009",
+    "name": [
+      "Beyond Wonderland\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6004",
+    "name": [
+      "Blasphemer of Night\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Bow\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6001",
+    "name": [
+      "Brave New World\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6047",
+    "name": [
+      "Buds Yet to Bloom3.0\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Cheering\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Covet\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6034",
+    "name": [
+      "Cracks in the Shell\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6018",
+    "name": [
+      "Dawn is Coming\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Decode\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Dust on the Roadside2.8\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6041",
+    "name": [
+      "Embrace the Past\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": "2.8"
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Falling for a Sweet Phenomenon\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6042",
+    "name": [
+      "Family Mentor\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": "2.8"
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Fatuous\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Flourishing\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6019",
+    "name": [
+      "For Rehabilitation\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6024",
+    "name": [
+      "From The Depths\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Going Along Alone\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Her Bright Future\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Her Mournful Face\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6003",
+    "name": [
+      "Her Second Life\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6007",
+    "name": [
+      "His Bounden Duty\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "His Tail\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6046",
+    "name": [
+      "Homecoming Lament3.0\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6002",
+    "name": [
+      "Hopscotch\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "In the Shadow\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6023",
+    "name": [
+      "Into the Gentle Current\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": "3.0"
+  },
+  {
+    "id": "P6016",
+    "name": [
+      "Knock on the Door\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Laughter and Laughter\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Let's Set Sail\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6013",
+    "name": [
+      "Long Night Talk\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Loss\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6008",
+    "name": [
+      "Luxurious Leisure\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Meek\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Melodies Old and New\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6038",
+    "name": [
+      "Mental Cage\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Navigating\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6039",
+    "name": [
+      "Never-Ending Q&A\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Night After Night\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Numb\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Off the Scene\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6030",
+    "name": [
+      "Offbeat Strides\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6032",
+    "name": [
+      "On the Hand of Time\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "One with the Flow\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6014",
+    "name": [
+      "Outside the City\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6035",
+    "name": [
+      "Ready on Call\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6036",
+    "name": [
+      "Rehearsal of Dreams\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Remaining Absurdity\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6015",
+    "name": [
+      "Same Old Story\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6011",
+    "name": [
+      "Silent and Adoring\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Silent Gaze\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Slighted\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Spinning Yarns\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6025",
+    "name": [
+      "Starlight Wellspring\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6021",
+    "name": [
+      "Steps Forward\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6027",
+    "name": [
+      "Stray Off the Path\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Substitutes and Simulacra3.0\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Take the Hard Journey\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Tea Break\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6006",
+    "name": [
+      "That Inquisitive Dear\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6010",
+    "name": [
+      "The Carat of a Heart\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6022",
+    "name": [
+      "The Fighter's Best Wishes\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6037",
+    "name": [
+      "The Final Roll\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "The Footloose\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "The Severed and the Rest\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6029",
+    "name": [
+      "The Third Commitment\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6023",
+    "name": [
+      "The Unbearable Lightness\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "The Unknown Artist\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6005",
+    "name": [
+      "Thunderous Applause\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6031",
+    "name": [
+      "Tiny Wish\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Tomorrow Also\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P6028",
+    "name": [
+      "Transcendent Love\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Venomous\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Yearning Desire\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "You Deserve It\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  },
+  {
+    "id": "P5001",
+    "name": [
+      "Your Friendly Exorcist\n"
+    ],
+    "rarity": 6,
+    "effect": "None",
+    "version": 0
+  }
+]

@@ -85,7 +85,8 @@ body {
 }
 .team-slot {
     width: 120px;
-    min-height: 180px;
+    /*min-height: 180px;*/
+    height: 180px;
     border: 2px dashed #ccc;
     border-radius: 8px;
     display: flex; /* 文字を中央揃えにするため */
@@ -382,8 +383,11 @@ body {
     /* 空スロットのスタイルを上書き */
     border: none;
     padding: 0;
-    font-size: inherit; /* 空スロットの文字サイズをリセット */
-    color: inherit; /* 空スロットの文字色をリセット */
+    font-size: inherit;
+    color: inherit;
+    /* ▼▼▼【重要】中央揃えを解除する指定を追加 ▼▼▼ */
+    align-items: stretch;
+    justify-content: normal;
 }
 
 /* カードとスロット（中身あり）にホバーした時に画像を拡大 */
@@ -738,6 +742,33 @@ body {
 .mini-team-view .team-slot.drag-over-slot {
     background-color: #e0eaff;
     border-style: solid;
+}
+
+/* 表示切替ボタンのスタイル */
+.view-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+.view-btn {
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #ddd;
+    background-color: #f9f9f9;
+    color: #888;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.view-btn:hover {
+    background-color: #eee;
+}
+.view-btn.active {
+    background-color: #4a69bd;
+    color: white;
+    border-color: #4a69bd;
 }
 
 
