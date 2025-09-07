@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let sortedCharacters = [...filteredCharacters];
             // ... (既存のソートのswitch文はここに移動)
             switch (currentSort) {
-                case 'rarity-desc': sortedCharacters.sort((a, b) => (b.rarity || 0) - (b.rarity || 0)); break;
+                case 'rarity-desc': sortedCharacters.sort((a, b) => (b.rarity || 0) - (a.rarity || 0)); break;
                 case 'rarity-asc': sortedCharacters.sort((a, b) => (a.rarity || 0) - (b.rarity || 0)); break;
                 case 'version-desc':
                     sortedCharacters.sort((a, b) => {
@@ -960,6 +960,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Sorting functionality
+    sortButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Do nothing if the button is already active
+            if (button.classList.contains('active')) {
+                return;
+            }
+
+            // Set the new sort order from the button's data-sort attribute
+            currentSort = button.dataset.sort;
+
+            // Update the active state for visual feedback
+            sortButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // Re-render the list with the new sorting applied
+            applyFilters();
+        });
+    });
+
 
     // モード切替
     modeSelector.addEventListener('click', (event) => {
@@ -1247,6 +1267,19 @@ document.addEventListener('DOMContentLoaded', () => {
 // TODO: Team Stats
 // TODO: Damage Dealer, Sub Carry, Support, Survivalの分類をそれぞれのキャラに
 // TODO: 技の説明や凸の説明
+
+
+/* Psychubeの説明 implement
+{
+  "id": "P6043",
+  "name": "A Tingle of a Thought",
+  "rarity": 6,
+  "effects": {
+    "lv1": "If the carrier is of the [Intelligence] afflatus, after casting a channel incantation, ATK +1%, stacking up to 3 times. At the end of the round, for every 1 [Dynamo] infused by allies this round, Critical DMG +1.2%, stacking up to 16 times.",
+    "lv5": "If the carrier is of the [Intelligence] afflatus, after casting a channel incantation, ATK +3%, stacking up to 3 times. At the end of the round, for every 1 [Dynamo] infused by allies this round, Critical DMG +2%, stacking up to 16 times."
+  }
+}
+*/
 
 
 
