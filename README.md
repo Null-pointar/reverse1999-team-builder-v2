@@ -30,7 +30,9 @@ Click here -> [https://null-pointar.github.io/reverse1999-team-builder-v2
 
 ## Current Last Number for Psychube
 
-
+- P3006   (Slighted)
+- P4005   (Venomous)
+- P5033   (Substitutes and Simulacra )
 - P6048   (Into the Gentle Current v3.0)
 
 
