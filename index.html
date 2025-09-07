@@ -77,8 +77,10 @@
                 <input type="text" id="loaded-team-title" class="team-title-input" placeholder="Team Name (Required)" required>
                 <textarea id="loaded-team-desc" placeholder="Note for the team..."></textarea>
                 <p id="save-status" class="save-status"></p>
-                <button type="submit">Save Current Team</button>
-                <button type="button" id="clear-team-button">Clear Current Team</button>
+                <div class="button-group">
+                    <button type="submit">Save Current Team</button>
+                    <button type="button" id="clear-team-button">Clear Current Team</button>
+                </div>
             </form>
             
         </div>
@@ -166,10 +168,29 @@
         </div>
     </div>
 
-    <div id="mini-team-view" class="mini-team-view hidden">
-        </div>
-    <div id="share-modal" class="modal-overlay hidden">
+    <!-- キャラクターのカードをクリックしたときの詳細モーダル -->
+    <div id="mini-team-view" class="mini-team-view hidden"></div>
 
+    <div id="share-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="close-modal-button" class="close-modal-button">×</button>
+            <h3>Share Team</h3>
+            <p>Copy this link or scan the QR code to share.</p>
+            <div class="share-url-wrapper">
+                <input type="text" id="share-url-input" readonly>
+                <button id="copy-url-button">Copy</button>
+            </div>
+            <div id="qrcode-display"></div>
+        </div>
+    </div>
+
+    <div id="character-detail-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="close-detail-modal-button" class="close-modal-button">×</button>
+            <div id="modal-character-content" style="display: flex; gap: 20px;">
+                </div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
