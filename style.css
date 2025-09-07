@@ -1040,6 +1040,17 @@ body {
     transform: scale(1);
 }
 
+/* SortableJS用のスタイル */
+.sortable-ghost {
+  opacity: 0.4;
+  background-color: #e0eaff;
+}
+
+.sortable-drag {
+  opacity: 1 !important;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
